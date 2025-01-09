@@ -49,7 +49,8 @@ def start_game(game_function):
             break
         user_score += 1
 
-    victory_user(user_name)
+    if user_score >= target_score:
+        victory_user(user_name)
 
 
 def brain_even(difficulty_level, user_name):
