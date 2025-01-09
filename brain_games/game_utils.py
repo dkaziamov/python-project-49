@@ -16,7 +16,8 @@ def victory_user(user_name):
 
 
 def lose_user(user_name, user_answer, correct_answer):
-    print(f'"{user_answer}" is wrong answer ;(. Correct answer was "{correct_answer}".')
+    print((f'"{user_answer}" is wrong answer ;(.'
+           f' Correct answer was "{correct_answer}".'))
     print(f"Let's try again, {user_name}!")
 
 
