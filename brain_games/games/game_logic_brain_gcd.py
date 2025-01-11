@@ -1,13 +1,33 @@
-def brain_gcd(difficulty_level, user_name):
-    # print('Find the greatest common divisor of given numbers.')
-    first_number = generate_random_number(difficulty_level)
-    second_number = generate_random_number(difficulty_level)
-    print(f'Question: {first_number} {second_number}')
-    correct_answer = find_gcd(first_number, second_number)
+from brain_games.text_data import messages
+from brain_games.game_utils import (
+    generate_random_number,
+    try_convert_to_int,
+    get_user_answer,
+    feedback_result,
+    compare_answer,
+    find_gcd
+)
 
-    user_answer = prompt.string('Your answer: ')
-    if not is_user_answer_number(user_answer):
-        lose_user(user_name, user_answer, correct_answer)
-        return False
-    user_answer = int(user_answer)
-    return is_user_answer_correct(user_name, user_answer, correct_answer)
+
+def brain_gcd(user_name: str) -> bool:
+    """
+    Runs a game round where the user has to find the
+    greatest common divisor (GCD) of two numbers.
+
+    Args:
+        user_name (str): The name of the user playing the game.
+
+    Returns:
+        bool: True if the user's answer is correct, False otherwise.
+    """
+    DIFFICULTY_LEVEL = 10  # sets the max number for generate_random_number()
+    print(messages['task_gcd'])
+    first_num = generate_random_number(DIFFICULTY_LEVEL)
+    second_num = generate_random_number(DIFFICULTY_LEVEL)
+    print(f"{messages['question_display']} {first_num} {second_num}")
+    correct_answer_int = find_gcd(first_num, second_num)
+    user_answer_int = try_convert_to_int(get_user_answer())
+    result = compare_answer(user_answer_int, correct_answer_int)
+    return feedback_result(
+        result, user_name, user_answer_int, correct_answer_int
+    )
