@@ -1,16 +1,28 @@
-def brain_calc(difficulty_level, user_name):
-    # print('What is the result of the expression?')
-    first_number = generate_random_number(difficulty_level)
-    second_number = generate_random_number(difficulty_level)
-    math_symbol = generate_random_math_symbol()
-    print(f'Question: {first_number} {math_symbol} {second_number}')
-    correct_answer = math_symbol_to_math_operation(math_symbol)(
-        first_number, second_number
-    )
+from brain_games.text_data import messages
+from brain_games.game_utils import (
+    math_symbol_to_math_operation,
+    generate_random_math_symbol,
+    generate_random_number,
+    is_user_answer_correct,
+    try_convert_to_int,
+    get_user_answer,
+    feedback_result
+)
 
-    user_answer = prompt.string('Your answer: ')
-    if not is_user_answer_number(user_answer):
-        lose_user(user_name, user_answer, correct_answer)
-        return False
-    user_answer = int(user_answer)
-    return is_user_answer_correct(user_name, user_answer, correct_answer)
+
+def brain_calc(user_name):
+    DIFFICULTY_LEVEL = 10  # sets the max number for generate_random_number()
+    first_num = generate_random_number(DIFFICULTY_LEVEL)
+    second_num = generate_random_number(DIFFICULTY_LEVEL)
+    math_symbol = generate_random_math_symbol()
+    print(f"{messages['task_expression_result']}")
+    print(f"{messages['question_display']} "
+          f"{first_num} {math_symbol} {second_num}")
+    correct_answer_int = math_symbol_to_math_operation(math_symbol)(
+        first_num, second_num
+    )
+    user_answer_int = try_convert_to_int(get_user_answer())
+    result = is_user_answer_correct(user_answer_int, correct_answer_int)
+    return feedback_result(
+        result, user_name, user_answer_int, correct_answer_int
+    )

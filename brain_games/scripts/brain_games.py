@@ -1,12 +1,9 @@
-messages = {
-    'welcome': 'Welcome to the Brain Games!',
-    'welcome_user': lambda user_name: f'Hello, {user_name}!',
-    'victory_user': lambda user_name: f'Congratulations, {user_name}!',
-    'wrong_answer': lambda user_answer, correct_answer: (
-        f'"{user_answer}" is wrong answer ;(.'
-        f' Correct answer was "{correct_answer}".'
-    )
-}
-
-user_name = 'Biba'
-print(messages['welcome_user'](user_name))
+def get_user_answer_int():
+    user_answer = input()
+    try:
+        user_answer = int(user_answer)
+        return int(user_answer)
+    except ValueError:
+        return get_user_answer_int()
+    
+get_user_answer_int()

@@ -6,16 +6,20 @@ from random import choice, randint
 import prompt
 
 
-def ask_user_name():
-    return prompt.string('May I have your name? ')
+def get_user_name():
+    return prompt.string(messages['user_name'])
 
 
-def ask_user_answer():
-    return prompt.string('Your answer: ')
+def get_user_answer():
+    return prompt.string(messages['user_answer'])
 
 
-def convert_yes_no_to_bool(str_value):
-    return str_value == 'yes'
+def try_convert_to_int(input_value):
+    try:
+        input_value = int(input_value)
+        return int(input_value)
+    except ValueError:
+        return input_value
 
 
 def convert_bool_to_yes_no(bool_value):
@@ -24,12 +28,12 @@ def convert_bool_to_yes_no(bool_value):
     return 'no'
 
 
-def is_user_answer_correct(user_answer, correct_answer):
-    return user_answer == correct_answer
+def is_user_answer_correct(user_answer_str, correct_answer_str):
+    return user_answer_str == correct_answer_str
 
 
-def feedback_result(boolean_value, user_name, user_answer, correct_answer):
-    if boolean_value:
+def feedback_result(result, user_name, user_answer, correct_answer):
+    if result:
         print(messages['feedback_correct'])
         return True
     print(messages['feedback_wrong_answer'](user_answer, correct_answer))
