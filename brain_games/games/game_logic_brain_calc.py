@@ -12,10 +12,10 @@ from brain_games.game_utils import (
 
 def brain_calc(user_name):
     DIFFICULTY_LEVEL = 10  # sets the max number for generate_random_number()
+    print(messages['task_expression_result'])
     first_num = generate_random_number(DIFFICULTY_LEVEL)
     second_num = generate_random_number(DIFFICULTY_LEVEL)
     math_symbol = generate_random_math_symbol()
-    print(f"{messages['task_expression_result']}")
     print(f"{messages['question_display']} "
           f"{first_num} {math_symbol} {second_num}")
     correct_answer_int = math_symbol_to_math_operation(math_symbol)(

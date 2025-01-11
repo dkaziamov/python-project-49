@@ -28,8 +28,8 @@ def convert_bool_to_yes_no(bool_value):
     return 'no'
 
 
-def is_user_answer_correct(user_answer_str, correct_answer_str):
-    return user_answer_str == correct_answer_str
+def is_user_answer_correct(user_answer, correct_answer):
+    return user_answer == correct_answer
 
 
 def feedback_result(result, user_name, user_answer, correct_answer):
@@ -45,8 +45,8 @@ def generate_random_number(DIFFICULTY_LEVEL):
     return randint(1, DIFFICULTY_LEVEL)
 
 
-def if_number_is_even(number):
-    return number % 2 == 0
+def if_number_is_even(input_number):
+    return input_number % 2 == 0
 
 
 def generate_random_math_symbol():
@@ -62,14 +62,6 @@ def math_symbol_to_math_operation(math_symbol):
     return operations[math_symbol]
 
 
-def is_user_answer_number(user_answer):
-    try:
-        user_answer = int(user_answer)
-        return True
-    except ValueError:
-        return False
-
-
 def find_gcd(a, b):
     while a != 0 and b != 0:
         if a > b:
@@ -79,10 +71,10 @@ def find_gcd(a, b):
     return a + b
 
 
-def create_arithmetic_progression(difficulty_level):
+def create_arithmetic_progression(DIFFICULTY_LEVEL):
     length = randint(5, 10)
     start_number = randint(1, 100)
-    step = randint(2, difficulty_level)
+    step = randint(2, DIFFICULTY_LEVEL)
     list_of_numbers = []
     for position in range(length):
         list_of_numbers.append(start_number)
@@ -100,12 +92,12 @@ def create_arithmetic_progression(difficulty_level):
     return answer
 
 
-def if_number_is_prime(number):
+def if_number_is_prime(input_number):
     prime = True
     i = 2
-    while i * i <= number:
-        if number % i == 0:
+    while i * i <= input_number:
+        if input_number % i == 0:
             prime = False
             break
         i += 1
-    return prime and number > 1
+    return prime and input_number > 1
