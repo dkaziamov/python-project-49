@@ -1,46 +1,48 @@
 import operator
+
+from brain_games.text_data import messages
 from random import choice, randint
 
 import prompt
 
 
-def welcome_user():
-    print('Welcome to the Brain Games!')
-    user_name = prompt.string('May I have your name? ')
-    print(f"Hello, {user_name}!")
-    # messages['welcome'](user_name)
-    return user_name
+def ask_user_name():
+    return prompt.string('May I have your name? ')
 
 
-def victory_user(user_name):
-    print(f'Congratulations, {user_name}!')
+def ask_user_answer():
+    return prompt.string('Your answer: ')
 
 
-def lose_user(user_name, user_answer, correct_answer):
-    print((f'"{user_answer}" is wrong answer ;(.'
-           f' Correct answer was "{correct_answer}".'))
-    print(f"Let's try again, {user_name}!")
+def convert_yes_no_to_bool(str_value):
+    return str_value == 'yes'
 
 
-def is_user_answer_correct(user_name, user_answer, correct_answer):
-    if user_answer == correct_answer:
-        print('Correct!')
+def convert_bool_to_yes_no(bool_value):
+    if bool_value:
+        return 'yes'
+    return 'no'
+
+
+def is_user_answer_correct(user_answer, correct_answer):
+    return user_answer == correct_answer
+
+
+def feedback_result(boolean_value, user_name, user_answer, correct_answer):
+    if boolean_value:
+        print(messages['feedback_correct'])
         return True
-    else:
-        lose_user(user_name, user_answer, correct_answer)
-        return False
+    print(messages['feedback_wrong_answer'](user_answer, correct_answer))
+    print(messages['feedback_try_again'](user_name))
+    return False
 
 
-def generate_random_number(difficulty_level):
-    random_number = randint(1, difficulty_level)
-    return random_number
+def generate_random_number(DIFFICULTY_LEVEL):
+    return randint(1, DIFFICULTY_LEVEL)
 
 
 def if_number_is_even(number):
-    if number % 2 == 0:
-        return 'yes'
-    else:
-        return 'no'
+    return number % 2 == 0
 
 
 def generate_random_math_symbol():
@@ -53,8 +55,7 @@ def math_symbol_to_math_operation(math_symbol):
         "+": operator.add,
         "*": operator.mul,
     }
-    math_operation = operations[math_symbol]
-    return math_operation
+    return operations[math_symbol]
 
 
 def is_user_answer_number(user_answer):
@@ -103,8 +104,4 @@ def if_number_is_prime(number):
             prime = False
             break
         i += 1
-
-    if prime and number > 1:
-        return 'yes'
-    else:
-        return 'no'
+    return prime and number > 1
