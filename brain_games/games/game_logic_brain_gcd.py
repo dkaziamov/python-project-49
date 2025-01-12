@@ -18,7 +18,7 @@ def brain_gcd():
     first_num = generate_random_number(DIFFICULTY_LEVEL)
     second_num = generate_random_number(DIFFICULTY_LEVEL)
     task_question = f"{first_num} {second_num}"
-    correct_answer = find_gcd(first_num, second_num)
+    correct_answer = str(find_gcd(first_num, second_num))
     return play_round(
         task_message=task_message,
         task_question=task_question,
