@@ -1,38 +1,76 @@
-from brain_games.text_data import messages
-from brain_games.game_utils import (
-    find_arithmetic_progression_answer_position,
-    create_arithmetic_progression_list,
-    arithmetic_progression_str,
-    try_convert_to_int,
-    get_user_answer,
-    feedback_result,
-    compare_answer
-)
+from random import randint
+
+from brain_games.game_engine import play_round
 
 
-def brain_progression(user_name: str) -> bool:
+def create_arithmetic_progression_list() -> list:
     """
-    Runs a game round where the user has to find the missing number in an
-    arithmetic progression.
-
-    Args:
-        user_name (str): The name of the user playing the game.
+    Creates a list of numbers forming an arithmetic progression.
 
     Returns:
-        bool: True if the user's answer is correct, False otherwise.
+        list: A list of numbers in arithmetic progression.
     """
-    print(messages['task_missing_number'])
+    progression_length = randint(5, 10)
+    progression_first_num = randint(1, 100)
+    step = randint(2, 10)
+    arithmetic_progression_list = []
+    for position in range(progression_length):
+        arithmetic_progression_list.append(progression_first_num)
+        progression_first_num += step
+    return arithmetic_progression_list
+
+
+def find_arithmetic_progression_answer_position(
+        arithmetic_progression_list: list) -> int:
+    """
+    Finds a random position in the arithmetic progression list.
+
+    Args:
+        arithmetic_progression_list (list): The list of
+                                        numbers in arithmetic progression.
+
+    Returns:
+        int: A random index within the list.
+    """
+    answer_position = randint(0, len(arithmetic_progression_list) - 1)
+    return answer_position
+
+
+def convert_arithmetic_progression_to_str(
+        arithmetic_progression_list: list, answer_position: int) -> str:
+    """
+    Converts the arithmetic progression list to a string, hiding the number at
+    the answer position.
+
+    Args:
+        arithmetic_progression_list (list): The list of numbers
+                                            in arithmetic progression.
+        answer_position (int): The index of the number to hide.
+
+    Returns:
+        str: The arithmetic progression as a string, with the hidden number.
+    """
+    arithmetic_progression_list[answer_position] = '..'
+    arithmetic_progression_question_line = ''
+    for number in arithmetic_progression_list:
+        arithmetic_progression_question_line += str(number)
+        arithmetic_progression_question_line += ' '
+    return arithmetic_progression_question_line
+
+
+def brain_progression():
+    task_message = 'What number is missing in the progression?'
     arithmetic_progression = create_arithmetic_progression_list()
     answer_position = find_arithmetic_progression_answer_position(
         arithmetic_progression
     )
-    correct_answer_int = arithmetic_progression[answer_position]
-    question_line = arithmetic_progression_str(
+    correct_answer = str(arithmetic_progression[answer_position])
+    question_line = convert_arithmetic_progression_to_str(
         arithmetic_progression, answer_position
     )
-    print(f"{messages['question_display']} {question_line}")
-    user_answer_int = try_convert_to_int(get_user_answer())
-    result = compare_answer(user_answer_int, correct_answer_int)
-    return feedback_result(
-        result, user_name, user_answer_int, correct_answer_int
+    task_question = question_line
+    return play_round(
+        task_message=task_message,
+        task_question=task_question,
+        correct_answer=correct_answer
     )
