@@ -1,9 +1,10 @@
-def get_user_answer_int():
-    user_answer = input()
-    try:
-        user_answer = int(user_answer)
-        return int(user_answer)
-    except ValueError:
-        return get_user_answer_int()
-    
-get_user_answer_int()
+def make_user(name: str, age: int) -> dict:
+    return {"name": name, "age": age}
+
+
+def format_user(dictionary: dict) -> str:
+    return f"{dictionary['name']}, {dictionary['age']}"
+
+
+dictionary = make_user('Bob', 42)
+print(format_user(dictionary))
