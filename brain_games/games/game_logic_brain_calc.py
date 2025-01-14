@@ -1,7 +1,6 @@
 import operator
 from random import choice
 
-from brain_games.game_engine import play_round
 from brain_games.game_utils import generate_random_number
 
 DIFFICULTY_LEVEL = 10  # sets the max number for generate_random_number()
@@ -25,8 +24,4 @@ def brain_calc():
     correct_answer = str(convert_math_symbol_to_math_operation(math_symbol)(
         first_num, second_num
     ))
-    return play_round(
-        task_message=task_message,
-        task_question=task_question,
-        correct_answer=correct_answer
-    )
+    return task_message, task_question, correct_answer

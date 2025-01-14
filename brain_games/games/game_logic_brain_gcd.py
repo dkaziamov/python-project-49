@@ -1,4 +1,3 @@
-from brain_games.game_engine import play_round
 from brain_games.game_utils import generate_random_number
 
 DIFFICULTY_LEVEL = 10  # sets the max number for generate_random_number()
@@ -19,8 +18,4 @@ def brain_gcd():
     second_num = generate_random_number(DIFFICULTY_LEVEL)
     task_question = f"{first_num} {second_num}"
     correct_answer = str(find_gcd(first_num, second_num))
-    return play_round(
-        task_message=task_message,
-        task_question=task_question,
-        correct_answer=correct_answer
-    )
+    return task_message, task_question, correct_answer

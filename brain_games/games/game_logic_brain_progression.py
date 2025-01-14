@@ -1,7 +1,5 @@
 from random import randint
 
-from brain_games.game_engine import play_round
-
 
 def create_arithmetic_progression_list() -> list:
     """
@@ -69,8 +67,4 @@ def brain_progression():
         arithmetic_progression, answer_position
     )
     task_question = question_line
-    return play_round(
-        task_message=task_message,
-        task_question=task_question,
-        correct_answer=correct_answer
-    )
+    return task_message, task_question, correct_answer
