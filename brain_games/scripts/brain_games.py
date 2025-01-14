@@ -1,8 +1,10 @@
-def brain_even():
-    task_message = 'Hello'
-    question_number = 135
-    correct_answer = 'yes'
-    return task_message, question_number, correct_answer
+from brain_games.game_engine import start_game
+from brain_games.cli import welcome_user
 
 
-print(brain_even((task_message, task_question, correct_answer)))
+def main():
+    start_game(brain_gcd)
+
+
+if __name__ == "__main__":
+    main()
